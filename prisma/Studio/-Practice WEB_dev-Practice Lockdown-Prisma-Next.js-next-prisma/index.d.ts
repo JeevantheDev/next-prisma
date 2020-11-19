@@ -1199,6 +1199,7 @@ export type ArtistWhereInput = {
 
 export type ArtistWhereUniqueInput = {
   id?: number
+  name?: string
 }
 
 export type SongWhereUniqueInput = {

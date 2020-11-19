@@ -8,8 +8,9 @@ const addSong = () => {
     fetch('http://localhost:3000/api/v1/songs', {
       method: 'POST',
       body: JSON.stringify({ ...song })
+    }).then((res) => {
+      router.push('/');
     });
-    router.push('/');
   };
   return (
     <>

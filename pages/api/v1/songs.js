@@ -19,6 +19,7 @@ export default async function (req, res) {
     songDetails.albumCoverUrl = JSON.parse(body).albumCover;
     artistDetails.name = JSON.parse(body).artistName;
     artistDetails.genre = JSON.parse(body).genre;
+
     const artist = await prisma.artist.create({
       data: {
         name: artistDetails.name,
