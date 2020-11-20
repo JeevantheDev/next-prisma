@@ -19,7 +19,7 @@
 After cloning the repository, you can run `yarn` to install the dependencies and then start the application with `yarn dev`.
 
 ```bash
-$ git clone https://github.com/leerob/next-prisma.git
+$ git clone https://github.com/JeevantheDev/next-prisma.git
 $ yarn
 $ yarn dev
 ```
