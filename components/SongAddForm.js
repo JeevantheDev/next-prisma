@@ -5,12 +5,14 @@ import {
   Input,
   Button,
   Flex,
-  Select
+  Select,
+  useToast
 } from '@chakra-ui/core';
 import NextLink from 'next/link';
 
 const SongAddForm = (props) => {
   const { handleFormSubmit } = props;
+  const toast = useToast();
   const state = {
     songName: '',
     youtubeId: '',
@@ -71,7 +73,13 @@ const SongAddForm = (props) => {
         albumCover: ''
       });
     } else {
-      alert('Fill the form');
+      toast({
+        title: 'Fill all the area.',
+        position: 'top',
+        status: 'error',
+        duration: 5000,
+        isClosable: true
+      });
     }
   };
   return (
@@ -101,6 +109,7 @@ const SongAddForm = (props) => {
         >
           <option value="rock">Rock</option>
           <option value="pop">Pop</option>
+          <option value="hip-hop">Hip-Hop</option>
           <option value="alternative">Alternative</option>
           <option value="r&b">R&B</option>
           <option value="edm">Electronic Dance Music</option>

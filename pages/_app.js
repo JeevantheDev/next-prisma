@@ -55,7 +55,7 @@ const MyApp = ({ Component, pageProps }) => {
               background-image: url('./img/bg.svg');
               background-repeat: no-repeat;
               background-attachment: fixed;
-              background-position: left;
+              background-position: top;
             }
             option {
               background: #1a202c;

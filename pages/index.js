@@ -1,5 +1,7 @@
 import { PrismaClient } from '@prisma/client';
-import { List, Heading, Select, Box } from '@chakra-ui/core';
+import { List, Heading, Select, Box, Button, Flex } from '@chakra-ui/core';
+import { IconButton, Spacer, Tooltip } from '@chakra-ui/react';
+import { ArrowUpIcon, ArrowDownIcon } from '@chakra-ui/icons';
 
 import Song from '../components/Song';
 import AddBtn from '../components/AddBtn';
@@ -27,6 +29,7 @@ const ListSongs = ({ songs }) => (
 const Home = (props) => {
   const { songs } = props;
   const [category, setCategory] = useState('all');
+  const [reverse, setReverse] = useState(false);
   const handleFilterChange = (event) => {
     const { options } = event.target;
     const optionsLength = options.length;
@@ -40,16 +43,34 @@ const Home = (props) => {
     setCategory(value.toString());
   };
 
+  const handleUp = () => {
+    setReverse(!reverse);
+  };
+
   const filterSongs = (songs) => {
     if (category === 'all') {
-      return songs;
+      if (reverse) {
+        return songs.reverse();
+      } else {
+        return songs.reverse();
+      }
+    } else {
+      if (reverse) {
+        return songs.reverse().filter((song) => {
+          return (
+            song.Artist.genre.toLowerCase() &&
+            song.Artist.genre.toLowerCase().includes(category)
+          );
+        });
+      } else {
+        return songs.reverse().filter((song) => {
+          return (
+            song.Artist.genre.toLowerCase() &&
+            song.Artist.genre.toLowerCase().includes(category)
+          );
+        });
+      }
     }
-    return songs.filter((song) => {
-      return (
-        song.Artist.genre.toLowerCase() &&
-        song.Artist.genre.toLowerCase().includes(category)
-      );
-    });
   };
 
   return (
@@ -69,6 +90,7 @@ const Home = (props) => {
             <option value="all">All</option>
             <option value="rock">Rock</option>
             <option value="pop">Pop</option>
+            <option value="hip-hop">Hip-Hop</option>
             <option value="alternative">Alternative</option>
             <option value="r&b">R&B</option>
             <option value="edm">Electronic Dance Music</option>
@@ -77,6 +99,34 @@ const Home = (props) => {
             <option value="electro">Electro</option>
             <option value="punjabi">Punjabi</option>
           </Select>
+        </Box>
+        <Box w="20%" ml="4">
+          <Flex>
+            <Spacer />
+            <Tooltip
+              label="Sort"
+              placement="top"
+              aria-label="A tooltip"
+              bg="grey.600"
+            >
+              <Button p="4" onClick={handleUp} w="10%" my="4">
+                <IconButton
+                  variant="outline"
+                  colorScheme="teal"
+                  size="lg"
+                  aria-label="New Songs"
+                  icon={<ArrowUpIcon />}
+                />
+                <IconButton
+                  variant="outline"
+                  colorScheme="teal"
+                  size="lg"
+                  aria-label="New Songs"
+                  icon={<ArrowDownIcon />}
+                />
+              </Button>
+            </Tooltip>
+          </Flex>
         </Box>
       </AddBtn>
 
