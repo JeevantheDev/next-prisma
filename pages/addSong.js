@@ -4,13 +4,9 @@ import SongAddForm from '../components/SongAddForm';
 import { Heading } from '@chakra-ui/core';
 const addSong = () => {
   const router = useRouter();
-  const [url, setUrl] = useState('');
-  useEffect(() => {
-    setUrl(window.location.origin);
-  }, []);
-  console.log(url);
+
   const handleCreateSong = (song) => {
-    fetch(`${url}/api/v1/songs`, {
+    fetch(`/api/v1/songs`, {
       method: 'POST',
       body: JSON.stringify({ ...song })
     }).then((res) => {

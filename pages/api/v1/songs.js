@@ -24,7 +24,7 @@ export default async function (req, res) {
       data: {
         name: artistDetails.name,
         genre: artistDetails.genre,
-        songs: {
+        Song: {
           create: {
             name: songDetails.name,
             youtubeId: songDetails.youtubeId,
@@ -32,7 +32,7 @@ export default async function (req, res) {
           }
         }
       },
-      include: { songs: true }
+      include: { Song: true }
     });
 
     res.json(artist);

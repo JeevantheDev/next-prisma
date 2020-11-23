@@ -1,0 +1,68 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "CreateField",
+      "model": "Song",
+      "field": "Artist",
+      "type": "Artist",
+      "arity": "Optional"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "Song",
+          "field": "Artist"
+        },
+        "directive": "relation"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Song",
+          "field": "Artist"
+        },
+        "directive": "relation"
+      },
+      "argument": "fields",
+      "value": "[artistId]"
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Song",
+          "field": "Artist"
+        },
+        "directive": "relation"
+      },
+      "argument": "references",
+      "value": "[id]"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Song",
+      "field": "artist"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Artist",
+      "field": "Song",
+      "type": "Song",
+      "arity": "List"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Artist",
+      "field": "songs"
+    }
+  ]
+}

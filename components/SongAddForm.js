@@ -19,6 +19,7 @@ const SongAddForm = (props) => {
     genre: ''
   };
   const [form, setForm] = useState(state);
+  const [loading, setLoading] = useState(false);
   const handleChange = (e) => {
     const target = e.target;
     const name = target.name;
@@ -61,6 +62,7 @@ const SongAddForm = (props) => {
       form.youtubeId
     ) {
       handleFormSubmit({ ...form });
+      setLoading(true);
       setForm({
         songName: '',
         artistName: '',
@@ -114,9 +116,15 @@ const SongAddForm = (props) => {
             Back
           </Button>
         </NextLink>
-        <Button onClick={handleSubmit} mx="4" my="4">
-          Submit
-        </Button>
+        {!loading ? (
+          <Button onClick={handleSubmit} mx="4" my="4">
+            Submit
+          </Button>
+        ) : (
+          <Button isLoading loadingText="Submitting" mx="4" my="4">
+            Submit
+          </Button>
+        )}
       </Flex>
     </>
   );

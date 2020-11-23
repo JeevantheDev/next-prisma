@@ -351,20 +351,20 @@ export declare type OrderByArg = (typeof OrderByArg)[keyof typeof OrderByArg]
  */
 
 export type Artist = {
+  genre: string | null
   id: number
   name: string
-  genre: string | null
 }
 
 export type ArtistSelect = {
+  genre?: boolean
   id?: boolean
   name?: boolean
-  genre?: boolean
-  songs?: boolean | FindManySongArgs
+  Song?: boolean | FindManySongArgs
 }
 
 export type ArtistInclude = {
-  songs?: boolean | FindManySongArgs
+  Song?: boolean | FindManySongArgs
 }
 
 export type ArtistGetPayload<
@@ -378,14 +378,14 @@ export type ArtistGetPayload<
   ? 'include' extends U
     ? Artist  & {
       [P in TrueKeys<S['include']>]:
-      P extends 'songs'
+      P extends 'Song'
       ? Array<SongGetPayload<S['include'][P]>> : never
     }
   : 'select' extends U
     ? {
       [P in TrueKeys<S['select']>]:P extends keyof Artist ? Artist[P]
 : 
-      P extends 'songs'
+      P extends 'Song'
       ? Array<SongGetPayload<S['select'][P]>> : never
     }
   : Artist
@@ -417,8 +417,8 @@ export interface ArtistDelegate {
    * // Get first 10 Artists
    * const artists = await prisma.artist.findMany({ take: 10 })
    * 
-   * // Only select the `id`
-   * const artistWithIdOnly = await prisma.artist.findMany({ select: { id: true } })
+   * // Only select the `genre`
+   * const artistWithGenreOnly = await prisma.artist.findMany({ select: { genre: true } })
    * 
   **/
   findMany<T extends FindManyArtistArgs>(
@@ -554,7 +554,7 @@ export declare class Prisma__ArtistClient<T> implements Promise<T> {
   constructor(_dmmf: DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
   readonly [Symbol.toStringTag]: 'PrismaClientPromise';
 
-  songs<T extends FindManySongArgs = {}>(args?: Subset<T, FindManySongArgs>): CheckSelect<T, Promise<Array<Song>>, Promise<Array<SongGetPayload<T>>>>;
+  Song<T extends FindManySongArgs = {}>(args?: Subset<T, FindManySongArgs>): CheckSelect<T, Promise<Array<Song>>, Promise<Array<SongGetPayload<T>>>>;
 
   private get _document();
   /**
@@ -761,24 +761,24 @@ export type ArtistArgs = {
  */
 
 export type Song = {
+  albumCoverUrl: string | null
+  artistId: number | null
   id: number
   name: string
   youtubeId: string | null
-  albumCoverUrl: string | null
-  artistId: number | null
 }
 
 export type SongSelect = {
+  albumCoverUrl?: boolean
+  artistId?: boolean
   id?: boolean
   name?: boolean
   youtubeId?: boolean
-  albumCoverUrl?: boolean
-  artist?: boolean | ArtistArgs
-  artistId?: boolean
+  Artist?: boolean | ArtistArgs
 }
 
 export type SongInclude = {
-  artist?: boolean | ArtistArgs
+  Artist?: boolean | ArtistArgs
 }
 
 export type SongGetPayload<
@@ -792,14 +792,14 @@ export type SongGetPayload<
   ? 'include' extends U
     ? Song  & {
       [P in TrueKeys<S['include']>]:
-      P extends 'artist'
+      P extends 'Artist'
       ? ArtistGetPayload<S['include'][P]> | null : never
     }
   : 'select' extends U
     ? {
       [P in TrueKeys<S['select']>]:P extends keyof Song ? Song[P]
 : 
-      P extends 'artist'
+      P extends 'Artist'
       ? ArtistGetPayload<S['select'][P]> | null : never
     }
   : Song
@@ -831,8 +831,8 @@ export interface SongDelegate {
    * // Get first 10 Songs
    * const songs = await prisma.song.findMany({ take: 10 })
    * 
-   * // Only select the `id`
-   * const songWithIdOnly = await prisma.song.findMany({ select: { id: true } })
+   * // Only select the `albumCoverUrl`
+   * const songWithAlbumCoverUrlOnly = await prisma.song.findMany({ select: { albumCoverUrl: true } })
    * 
   **/
   findMany<T extends FindManySongArgs>(
@@ -968,7 +968,7 @@ export declare class Prisma__SongClient<T> implements Promise<T> {
   constructor(_dmmf: DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
   readonly [Symbol.toStringTag]: 'PrismaClientPromise';
 
-  artist<T extends ArtistArgs = {}>(args?: Subset<T, ArtistArgs>): CheckSelect<T, Prisma__ArtistClient<Artist | null>, Prisma__ArtistClient<ArtistGetPayload<T> | null>>;
+  Artist<T extends ArtistArgs = {}>(args?: Subset<T, ArtistArgs>): CheckSelect<T, Prisma__ArtistClient<Artist | null>, Prisma__ArtistClient<ArtistGetPayload<T> | null>>;
 
   private get _document();
   /**
@@ -1176,22 +1176,22 @@ export type SongArgs = {
 
 
 export type SongWhereInput = {
+  albumCoverUrl?: string | NullableStringFilter | null
+  artistId?: number | NullableIntFilter | null
   id?: number | IntFilter
   name?: string | StringFilter
   youtubeId?: string | NullableStringFilter | null
-  albumCoverUrl?: string | NullableStringFilter | null
-  artistId?: number | NullableIntFilter | null
   AND?: Enumerable<SongWhereInput>
   OR?: Array<SongWhereInput>
   NOT?: Enumerable<SongWhereInput>
-  artist?: ArtistWhereInput | null
+  Artist?: ArtistWhereInput | null
 }
 
 export type ArtistWhereInput = {
+  genre?: string | NullableStringFilter | null
   id?: number | IntFilter
   name?: string | StringFilter
-  genre?: string | NullableStringFilter | null
-  songs?: SongFilter | null
+  Song?: SongFilter | null
   AND?: Enumerable<ArtistWhereInput>
   OR?: Array<ArtistWhereInput>
   NOT?: Enumerable<ArtistWhereInput>
@@ -1206,9 +1206,9 @@ export type SongWhereUniqueInput = {
 }
 
 export type SongCreateWithoutArtistInput = {
+  albumCoverUrl?: string | null
   name: string
   youtubeId?: string | null
-  albumCoverUrl?: string | null
 }
 
 export type SongCreateManyWithoutArtistInput = {
@@ -1217,16 +1217,16 @@ export type SongCreateManyWithoutArtistInput = {
 }
 
 export type ArtistCreateInput = {
-  name: string
   genre?: string | null
-  songs?: SongCreateManyWithoutArtistInput | null
+  name: string
+  Song?: SongCreateManyWithoutArtistInput | null
 }
 
 export type SongUpdateWithoutArtistDataInput = {
+  albumCoverUrl?: string | null
   id?: number
   name?: string
   youtubeId?: string | null
-  albumCoverUrl?: string | null
 }
 
 export type SongUpdateWithWhereUniqueWithoutArtistInput = {
@@ -1235,21 +1235,21 @@ export type SongUpdateWithWhereUniqueWithoutArtistInput = {
 }
 
 export type SongScalarWhereInput = {
+  albumCoverUrl?: string | NullableStringFilter | null
+  artistId?: number | NullableIntFilter | null
   id?: number | IntFilter
   name?: string | StringFilter
   youtubeId?: string | NullableStringFilter | null
-  albumCoverUrl?: string | NullableStringFilter | null
-  artistId?: number | NullableIntFilter | null
   AND?: Enumerable<SongScalarWhereInput>
   OR?: Array<SongScalarWhereInput>
   NOT?: Enumerable<SongScalarWhereInput>
 }
 
 export type SongUpdateManyDataInput = {
+  albumCoverUrl?: string | null
   id?: number
   name?: string
   youtubeId?: string | null
-  albumCoverUrl?: string | null
 }
 
 export type SongUpdateManyWithWhereNestedInput = {
@@ -1276,93 +1276,68 @@ export type SongUpdateManyWithoutArtistInput = {
 }
 
 export type ArtistUpdateInput = {
+  genre?: string | null
   id?: number
   name?: string
-  genre?: string | null
-  songs?: SongUpdateManyWithoutArtistInput
+  Song?: SongUpdateManyWithoutArtistInput
 }
 
 export type ArtistUpdateManyMutationInput = {
+  genre?: string | null
   id?: number
   name?: string
-  genre?: string | null
 }
 
-export type ArtistCreateWithoutSongsInput = {
+export type ArtistCreateWithoutSongInput = {
+  genre?: string | null
   name: string
-  genre?: string | null
 }
 
-export type ArtistCreateOneWithoutSongsInput = {
-  create?: ArtistCreateWithoutSongsInput
+export type ArtistCreateOneWithoutSongInput = {
+  create?: ArtistCreateWithoutSongInput
   connect?: ArtistWhereUniqueInput
 }
 
 export type SongCreateInput = {
+  albumCoverUrl?: string | null
   name: string
   youtubeId?: string | null
-  albumCoverUrl?: string | null
-  artist?: ArtistCreateOneWithoutSongsInput | null
+  Artist?: ArtistCreateOneWithoutSongInput | null
 }
 
-export type ArtistUpdateWithoutSongsDataInput = {
+export type ArtistUpdateWithoutSongDataInput = {
+  genre?: string | null
   id?: number
   name?: string
-  genre?: string | null
 }
 
-export type ArtistUpsertWithoutSongsInput = {
-  update: ArtistUpdateWithoutSongsDataInput
-  create: ArtistCreateWithoutSongsInput
+export type ArtistUpsertWithoutSongInput = {
+  update: ArtistUpdateWithoutSongDataInput
+  create: ArtistCreateWithoutSongInput
 }
 
-export type ArtistUpdateOneWithoutSongsInput = {
-  create?: ArtistCreateWithoutSongsInput
+export type ArtistUpdateOneWithoutSongInput = {
+  create?: ArtistCreateWithoutSongInput
   connect?: ArtistWhereUniqueInput
   disconnect?: boolean
   delete?: boolean
-  update?: ArtistUpdateWithoutSongsDataInput
-  upsert?: ArtistUpsertWithoutSongsInput
+  update?: ArtistUpdateWithoutSongDataInput
+  upsert?: ArtistUpsertWithoutSongInput
 }
 
 export type SongUpdateInput = {
+  albumCoverUrl?: string | null
   id?: number
   name?: string
   youtubeId?: string | null
-  albumCoverUrl?: string | null
-  artist?: ArtistUpdateOneWithoutSongsInput
+  Artist?: ArtistUpdateOneWithoutSongInput
 }
 
 export type SongUpdateManyMutationInput = {
+  albumCoverUrl?: string | null
   id?: number
   name?: string
   youtubeId?: string | null
-  albumCoverUrl?: string | null
-}
-
-export type IntFilter = {
-  equals?: number
-  not?: number | IntFilter
-  in?: Enumerable<number>
-  notIn?: Enumerable<number>
-  lt?: number
-  lte?: number
-  gt?: number
-  gte?: number
-}
-
-export type StringFilter = {
-  equals?: string
-  not?: string | StringFilter
-  in?: Enumerable<string>
-  notIn?: Enumerable<string>
-  lt?: string
-  lte?: string
-  gt?: string
-  gte?: string
-  contains?: string
-  startsWith?: string
-  endsWith?: string
 }
 
 export type NullableStringFilter = {
@@ -1390,6 +1365,31 @@ export type NullableIntFilter = {
   gte?: number | null
 }
 
+export type IntFilter = {
+  equals?: number
+  not?: number | IntFilter
+  in?: Enumerable<number>
+  notIn?: Enumerable<number>
+  lt?: number
+  lte?: number
+  gt?: number
+  gte?: number
+}
+
+export type StringFilter = {
+  equals?: string
+  not?: string | StringFilter
+  in?: Enumerable<string>
+  notIn?: Enumerable<string>
+  lt?: string
+  lte?: string
+  gt?: string
+  gte?: string
+  contains?: string
+  startsWith?: string
+  endsWith?: string
+}
+
 export type SongFilter = {
   every?: SongWhereInput
   some?: SongWhereInput
@@ -1397,17 +1397,17 @@ export type SongFilter = {
 }
 
 export type ArtistOrderByInput = {
+  genre?: OrderByArg | null
   id?: OrderByArg | null
   name?: OrderByArg | null
-  genre?: OrderByArg | null
 }
 
 export type SongOrderByInput = {
+  albumCoverUrl?: OrderByArg | null
+  artistId?: OrderByArg | null
   id?: OrderByArg | null
   name?: OrderByArg | null
   youtubeId?: OrderByArg | null
-  albumCoverUrl?: OrderByArg | null
-  artistId?: OrderByArg | null
 }
 
 /**

@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/core';
 import NextLink from 'next/link';
 
-const Song = ({ id, name, artist, albumCoverUrl }) => (
+const Song = ({ id, name, Artist, albumCoverUrl }) => (
   <ListItem
     border="1px solid"
     borderColor="gray.200"
@@ -32,11 +32,11 @@ const Song = ({ id, name, artist, albumCoverUrl }) => (
           <Heading size="lg" fontWeight="500">
             {name}
             <Badge mx="2" color="gray.700" bg="gray.200">
-              {artist.genre}
+              {Artist.genre}
             </Badge>
           </Heading>
 
-          <Text color="gray.700">{artist.name}</Text>
+          <Text color="gray.700">{Artist.name}</Text>
         </Stack>
       </Flex>
     </NextLink>

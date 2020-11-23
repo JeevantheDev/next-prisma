@@ -3,13 +3,13 @@ import { Box, Heading, Text, Button } from '@chakra-ui/core';
 import Head from 'next/head';
 import NextLink from 'next/link';
 
-export async function getStaticProps(context) {
-  const { params } = context;
+export async function getServerSideProps(context) {
+  const { query } = context;
   const prisma = new PrismaClient();
   const song = await prisma.song.findOne({
-    include: { artist: true },
+    include: { Artist: true },
     where: {
-      id: Number(params.id)
+      id: Number(query.id)
     }
   });
 
@@ -20,19 +20,19 @@ export async function getStaticProps(context) {
   };
 }
 
-export async function getStaticPaths() {
-  const prisma = new PrismaClient();
-  const songs = await prisma.song.findMany();
+// export async function getStaticPaths() {
+//   const prisma = new PrismaClient();
+//   const songs = await prisma.song.findMany();
 
-  return {
-    paths: songs.map((song) => ({
-      params: {
-        id: song.id.toString()
-      }
-    })),
-    fallback: false
-  };
-}
+//   return {
+//     paths: songs.map((song) => ({
+//       params: {
+//         id: song.id.toString()
+//       }
+//     })),
+//     fallback: false
+//   };
+// }
 
 export default ({ song }) => (
   <>
@@ -41,7 +41,7 @@ export default ({ song }) => (
       <meta name="title" content={song.name} />
       <meta
         name="description"
-        content={`${song.name} by artist ${song.artist.name}`}
+        content={`${song.name} by Artist ${song.Artist.name}`}
       />
 
       <meta property="og:type" content="website" />
@@ -49,7 +49,7 @@ export default ({ song }) => (
       <meta property="og:title" content={song.name} />
       <meta
         property="og:description"
-        content={`${song.name} by artist ${song.artist.name}`}
+        content={`${song.name} by Artist ${song.Artist.name}`}
       />
       <meta property="og:image" content={song.albumCoverUrl} />
 
@@ -58,14 +58,14 @@ export default ({ song }) => (
       <meta property="twitter:title" content={song.name} />
       <meta
         property="twitter:description"
-        content={`${song.name} by artist ${song.artist.name}`}
+        content={`${song.name} by Artist ${song.Artist.name}`}
       />
       <meta property="twitter:image" content={song.albumCoverUrl} />
     </Head>
     <Box mt={8}>
       <Heading fontWeight="800">{song.name}</Heading>
       <Text color="grey.700" mb={4}>
-        {song.artist.name}
+        {song.Artist.name}
       </Text>
       <iframe
         width="100%"

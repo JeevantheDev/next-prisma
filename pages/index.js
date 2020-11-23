@@ -5,10 +5,10 @@ import Song from '../components/Song';
 import AddBtn from '../components/AddBtn';
 import { useState } from 'react';
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const prisma = new PrismaClient();
   const songs = await prisma.song.findMany({
-    include: { artist: true }
+    include: { Artist: true }
   });
 
   return {
@@ -46,8 +46,8 @@ const Home = (props) => {
     }
     return songs.filter((song) => {
       return (
-        song.artist.genre.toLowerCase() &&
-        song.artist.genre.toLowerCase().includes(category)
+        song.Artist.genre.toLowerCase() &&
+        song.Artist.genre.toLowerCase().includes(category)
       );
     });
   };

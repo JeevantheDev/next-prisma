@@ -1,6 +1,6 @@
 .vercel
 .next
-.env
+/prisma/.env
 .env.local
 node_modules
 .DS_Store
